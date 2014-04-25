@@ -59,11 +59,12 @@ def main(argv):
    #print 'Email is "', email
    #print 'Config', config.get("smpt", "server")
 
-   title = title.replace(" ", "-");
+   #title = title.replace(" ", "-");
    
-   os.system(config.get("k2pdfopt", "k2file")+' '+pdffile+' -ui- -x -o '+title+'.pdf')
-   send_mail(config.get("smpt", "email"), config.get("smpt", "kindleEmail"), title, title, [''+title+'.pdf'], server=config.get("smpt", "server"), port=config.get("smpt", "port"), username=config.get("smpt", "username"), password=config.get("smpt", "password"))
-
+   os.system(config.get("k2pdfopt", "k2file")+' '+pdffile+' -ui- -x -o out.pdf')
+   os.system("cp out.pdf '"+title+"'.pdf")
+   send_mail(config.get("smpt", "email"), config.get("smpt", "kindleEmail"), title, title, [""+title+".pdf"], server=config.get("smpt", "server"), port=config.get("smpt", "port"), username=config.get("smpt", "username"), password=config.get("smpt", "password"))
+   #os.system("rm '"+title+"'.pdf")
 
 if __name__ == "__main__":
    main(sys.argv[1:])
