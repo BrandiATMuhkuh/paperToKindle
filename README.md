@@ -24,5 +24,5 @@ I don't know who came up with this super idea of creating 2 column pdf especiall
 # How to run
 
 * Open the command line and go to the the folder called "paperToKindle-master"
-* python ./paperToKindle.py -p <pdfFileName>
+* python ./paperToKindle.py -p "pdfFileName"
 
