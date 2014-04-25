@@ -52,3 +52,7 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+*~
+*.pdf
+config.cfg
+k2pdfopt
