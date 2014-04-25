@@ -41,26 +41,28 @@ def send_mail( send_from, send_to, subject, text, files=[], server="localhost", 
 def main(argv):
    
    pdffile = ''
+   title = ''
    try:
-      opts, args = getopt.getopt(argv,"hp:",["pdffile="])
+      opts, args = getopt.getopt(argv,"hp:t:",["pdffile=","title="])
    except getopt.GetoptError:
       print 'paperToKindle.py -p <pdf>'
       sys.exit(2)
    for opt, arg in opts:
       if opt == '-h':
-         print 'paperToKindle.py -p <pdf>'
+         print 'paperToKindle.py -p <pdf> -t <paper title>'
          sys.exit()
       elif opt in ("-p", "--pfile"):
          pdffile = arg
+      elif opt in ("-t", "--tfile"):
+         title = arg
    #print 'Pdf file is "', pdffile
    #print 'Email is "', email
    #print 'Config', config.get("smpt", "server")
+
+   title = title.replace(" ", "-");
    
-   os.system(config.get("k2pdfopt", "k2file")+' '+pdffile+' -ui- -x -o out.pdf')
-   send_mail(config.get("smpt", "email"), config.get("smpt", "kindleEmail"), 'This is the mail with a kindle file', 'This is the mail with a kindle file', ['out.pdf'], server=config.get("smpt", "server"), port=config.get("smpt", "port"), username=config.get("smpt", "username"), password=config.get("smpt", "password"))
-
-
-
+   os.system(config.get("k2pdfopt", "k2file")+' '+pdffile+' -ui- -x -o '+title+'.pdf')
+   send_mail(config.get("smpt", "email"), config.get("smpt", "kindleEmail"), title, title, [''+title+'.pdf'], server=config.get("smpt", "server"), port=config.get("smpt", "port"), username=config.get("smpt", "username"), password=config.get("smpt", "password"))
 
 
 if __name__ == "__main__":
